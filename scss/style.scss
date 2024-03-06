@@ -1,3 +1,11 @@
+$font-stack: 'Trebuchet MS', Arial, sans-serif;
+$light-color: #FFC300;
+$primary-color: #000814;
+$secondary-color: #00A6FB;
+
+@import 'utilities';
+@import 'config';
+@import 'btnConfig';
 
 * {
   box-sizing: border-box;
@@ -9,43 +17,96 @@ body {
   background-color: $light-color;
   font-family: $font-stack;
   line-height: 1;
+  color: text-color-picker($light-color);
 }
 
 img {
   border-radius: 50%;
+  width: 500px;
+  height: auto;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 .hero {
-  // This is where the bulk of the SCSS styling needs to be done
+  @include set-bg($primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4em 2em;
+  color: text-color-picker($primary-color);
 
-  // Take a look at the other files we've built already. How can they be useful here?
+  .banner{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 
-  // Also, take time to review the features of SCSS we've already covered:
-  // 1. $variables
-  // 2. nesting (dont forget about the ampersand (&) parent selector!)
-  // 3. At-Rules
+  nav ul{
+    list-style: none;
+    padding: 0;
+  
+    li{
+      display: inline;
+      margin-right: 1rem;
+    }
+  
+    a{
+      color: text-color-picker($primary-color);
+      &:hover{
+        color: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  .hero-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3em;
+  
+    div{
+      max-width: 600px;
+    }
+  
+    img{
+      max-width: 100%;
+      height: auto;
+      border-radius: 50%;
+    }
+  }
+
+  h1{
+    font-size: 4rem;
+    color: text-color-picker($primary-color);
+    margin: 0.5rem 0;
+  }
+  
+  p{
+    margin: 1rem 0;
+  }
 }
 
-// This code is related to some of the aspects of SCSS we have yet to cover.
-// While you don't have to mess with it, it would be advisable to attempt to understand its functionality.
-$spaceamounts: (1,2,3,4,5);
+.btn-primary{
+  @include set-bg(lighten($primary-color, 10%))
+}
 
-@each $space in $spaceamounts {
-  .m-#{$space} {
-    margin: #{$space}rem;
-  }
-  .my-#{$space} {
-    margin: #{$space}rem 0;
-  }
+.btn-secondary{
+  @include set-bg($secondary-color)
+}
 
-  .p-#{$space} {
-    padding: #{$space}rem;
+%btn{
+  &:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
   }
-  .py-#{$space} {
-    padding: #{$space}rem 0;
-  }
+}
+
+.btn-primary, .btn-secondary{
+  @extend %btn
 }
